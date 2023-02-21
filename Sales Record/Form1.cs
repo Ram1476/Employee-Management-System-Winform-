@@ -13,7 +13,7 @@ namespace Sales_Record
 {
     public partial class salesRec : Form
     {
-        
+        SqlConnection con = new SqlConnection(@"server = DESKTOP-39SGDTH\SQLEXPRESS; database = Empdata; integrated security =  true");
         public salesRec()
         {
             InitializeComponent();
@@ -27,7 +27,32 @@ namespace Sales_Record
 
         private void button2_Click(object sender, EventArgs e)
         {
+            SqlDataAdapter da = new SqlDataAdapter("Select * From Employees",con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            string sr = "EmployeeID | EmployeeName | Salary | Designation | Status\r\n";
+            
+            string sd = "";
+            int i = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                if (i == 0)
+                {
+                    sd += sr;
+                    sd += dr[0].ToString() + "|" + dr[1].ToString() + "|" + dr[2].ToString() + "|" + dr[3].ToString() +
+                        "|" + dr[4].ToString() + "\r\n";
+                    i++;
+                }
+                else
+                {
+                    sd += dr[0].ToString() + "|" + dr[1].ToString() + "|" + dr[2].ToString() + "|" + dr[3].ToString() +
+                        "|" + dr[4].ToString() + "\r\n";
 
+                }
+            }
+            txtDisplay.Text = sd;
+            //txtDisplay.Text = "Hello World1\nhow are u \r\n hope u r doing Good";
+            MessageBox.Show("Employee Details Successfully Displayed");
         }
 
         private void salesRec_Load(object sender, EventArgs e)
@@ -39,37 +64,131 @@ namespace Sales_Record
         {
             // inserting the below mwntioned Values into a Table 
             //insert into Employees(Emp_Id,Emp_Name,Emp_Salary,Designation,Status)
-            SqlConnection con = new SqlConnection("server = NLTI151\\SQLEXPRESS; database = Empdata; integrated security =  true");
+            
             int id, salary;
             string name, des, status;
             int.TryParse(txtID.Text,out id);
             int.TryParse(txtSalary.Text, out salary);
             name = txtName.Text;
             des = txtDes.Text;
-
-            if (txtStat.Text.ToLower() == "active")
-            {
-                status = "ACTIVE";
-            }
-            else 
-            {
-                status = "IN ACTIVE";
-            }
-
-
-          
-            SqlCommand cmd = new SqlCommand($"insert into Employees(Emp_Id,Emp_Name,Emp_Salary,Designation,Status)\nvalues('{id.ToString()}','{name}','{salary}','{des}','{status}');",con);
-
-            con.Open();
+            status = txtStat.Text;
+            
             try
-            { 
-                cmd.ExecuteNonQuery();
+            {
+                if (txtStat.Text != "")
+                {
+
+                    SqlCommand cmd = new SqlCommand($"insert into Employees(Emp_Id,Emp_Name,Emp_Salary,Designation,Status)\nvalues('{id.ToString()}','{name}','{salary}','{des}','{status}');", con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                else 
+                {
+                    SqlCommand cmd = new SqlCommand($"insert into Employees(Emp_Id,Emp_Name,Emp_Salary,Designation)\nvalues('{id.ToString()}','{name}','{salary}','{des}');", con);
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            con.Close();
+            finally
+            {
+
+                con.Close();
+            }
+        }
+
+        private void txtID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            int id, salary;
+            string name, des, status;
+            int.TryParse(txtID.Text, out id);
+            int.TryParse(txtSalary.Text, out salary);
+            name = txtName.Text;
+            des = txtDes.Text;
+            status = txtStat.Text;
+
+            
+            SqlDataAdapter ds1 = new SqlDataAdapter("Select * from employees", con);
+            SqlDataAdapter ds = new SqlDataAdapter($"update employees set Emp_Salary = {salary} where Emp_ID = {id}", con);
+            DataTable dt = new DataTable();
+            ds1.Fill(dt);
+            bool isSuccess = false;
+            bool isUpdated = false;
+            foreach (DataRow Dr in dt.Rows) 
+            {
+                if (Dr[0].ToString() == id.ToString()) 
+                {
+                    ds.Fill(dt);
+                    isSuccess = true;
+                    break;
+           
+                } 
+                
+            }
+            if (isSuccess) 
+            {
+                MessageBox.Show("Employee data has Been Successfullu Updated");
+            }
+            else 
+            {
+                MessageBox.Show($"Your EmployeeId {id} didn't Exist ");
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int id, salary;
+            string name, des, status;
+            int.TryParse(txtID.Text, out id);
+            int.TryParse(txtSalary.Text, out salary);
+            name = txtName.Text;
+            des = txtDes.Text;
+            status = txtStat.Text;
+
+
+            SqlDataAdapter ds1 = new SqlDataAdapter("Select * from employees", con);
+            SqlDataAdapter ds = new SqlDataAdapter($"update employees set Status = 'In Active' where Emp_ID = {id}", con);
+            DataTable dt = new DataTable();
+            ds1.Fill(dt);
+            
+            bool isSuccess = false;
+            foreach (DataRow Dr in dt.Rows)
+            {
+                if (Dr[0].ToString() == id.ToString())
+                {
+                    if (Dr[4].ToString().ToLower() == "in active" )
+                    {
+
+                        isSuccess = false;
+                        break;
+                    }
+                    else 
+                    {
+                        ds.Fill(dt);
+                        isSuccess = true;
+                        break;
+                    }
+
+                }
+
+            }
+            if (isSuccess)
+            {
+                MessageBox.Show("Employee data has Been Successfully deleted");
+            }
+            else
+            {
+                MessageBox.Show($"Your EmployeeId {id} didn't Exist ");
+            }
+
         }
     }
 }
