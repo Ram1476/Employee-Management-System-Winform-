@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lbl1 = new System.Windows.Forms.Label();
             this.linklblhead = new System.Windows.Forms.LinkLabel();
             this.lbl2 = new System.Windows.Forms.Label();
@@ -44,6 +45,18 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.txtDisplay = new System.Windows.Forms.TextBox();
+            this.outgrid1 = new System.Windows.Forms.DataGridView();
+            this.empdataDataSet = new Sales_Record.EmpdataDataSet();
+            this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.employeesTableAdapter = new Sales_Record.EmpdataDataSetTableAdapters.EmployeesTableAdapter();
+            this.empidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empSalaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.designationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.outgrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empdataDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl1
@@ -97,7 +110,7 @@
             this.txtID.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtID.Location = new System.Drawing.Point(218, 145);
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(104, 29);
+            this.txtID.Size = new System.Drawing.Size(173, 29);
             this.txtID.TabIndex = 4;
             this.txtID.TextChanged += new System.EventHandler(this.txtID_TextChanged);
             // 
@@ -152,12 +165,12 @@
             this.txtStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStat.Location = new System.Drawing.Point(741, 203);
             this.txtStat.Name = "txtStat";
-            this.txtStat.Size = new System.Drawing.Size(175, 29);
+            this.txtStat.Size = new System.Drawing.Size(210, 29);
             this.txtStat.TabIndex = 10;
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(56, 374);
+            this.btnCreate.Location = new System.Drawing.Point(31, 645);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(100, 38);
             this.btnCreate.TabIndex = 11;
@@ -167,7 +180,7 @@
             // 
             // btnRead
             // 
-            this.btnRead.Location = new System.Drawing.Point(218, 374);
+            this.btnRead.Location = new System.Drawing.Point(177, 645);
             this.btnRead.Name = "btnRead";
             this.btnRead.Size = new System.Drawing.Size(108, 38);
             this.btnRead.TabIndex = 12;
@@ -177,7 +190,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(384, 374);
+            this.btnUpdate.Location = new System.Drawing.Point(357, 645);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(107, 38);
             this.btnUpdate.TabIndex = 13;
@@ -187,7 +200,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(570, 374);
+            this.btnDelete.Location = new System.Drawing.Point(537, 645);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(109, 38);
             this.btnDelete.TabIndex = 14;
@@ -198,11 +211,77 @@
             // txtDisplay
             // 
             this.txtDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDisplay.Location = new System.Drawing.Point(56, 448);
+            this.txtDisplay.Location = new System.Drawing.Point(12, 350);
             this.txtDisplay.Multiline = true;
             this.txtDisplay.Name = "txtDisplay";
-            this.txtDisplay.Size = new System.Drawing.Size(733, 250);
+            this.txtDisplay.Size = new System.Drawing.Size(743, 264);
             this.txtDisplay.TabIndex = 15;
+            // 
+            // outgrid1
+            // 
+            this.outgrid1.AutoGenerateColumns = false;
+            this.outgrid1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.outgrid1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.empidDataGridViewTextBoxColumn,
+            this.empNameDataGridViewTextBoxColumn,
+            this.empSalaryDataGridViewTextBoxColumn,
+            this.designationDataGridViewTextBoxColumn,
+            this.statusDataGridViewTextBoxColumn});
+            this.outgrid1.DataSource = this.employeesBindingSource;
+            this.outgrid1.Location = new System.Drawing.Point(12, 350);
+            this.outgrid1.Name = "outgrid1";
+            this.outgrid1.Size = new System.Drawing.Size(743, 264);
+            this.outgrid1.TabIndex = 16;
+            this.outgrid1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.outgrid1_CellContentClick);
+            // 
+            // empdataDataSet
+            // 
+            this.empdataDataSet.DataSetName = "EmpdataDataSet";
+            this.empdataDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // employeesBindingSource
+            // 
+            this.employeesBindingSource.DataMember = "Employees";
+            this.employeesBindingSource.DataSource = this.empdataDataSet;
+            // 
+            // employeesTableAdapter
+            // 
+            this.employeesTableAdapter.ClearBeforeFill = true;
+            // 
+            // empidDataGridViewTextBoxColumn
+            // 
+            this.empidDataGridViewTextBoxColumn.DataPropertyName = "Emp_id";
+            this.empidDataGridViewTextBoxColumn.HeaderText = "Emp_id";
+            this.empidDataGridViewTextBoxColumn.Name = "empidDataGridViewTextBoxColumn";
+            this.empidDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // empNameDataGridViewTextBoxColumn
+            // 
+            this.empNameDataGridViewTextBoxColumn.DataPropertyName = "Emp_Name";
+            this.empNameDataGridViewTextBoxColumn.HeaderText = "Emp_Name";
+            this.empNameDataGridViewTextBoxColumn.Name = "empNameDataGridViewTextBoxColumn";
+            this.empNameDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // empSalaryDataGridViewTextBoxColumn
+            // 
+            this.empSalaryDataGridViewTextBoxColumn.DataPropertyName = "Emp_Salary";
+            this.empSalaryDataGridViewTextBoxColumn.HeaderText = "Emp_Salary";
+            this.empSalaryDataGridViewTextBoxColumn.Name = "empSalaryDataGridViewTextBoxColumn";
+            this.empSalaryDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // designationDataGridViewTextBoxColumn
+            // 
+            this.designationDataGridViewTextBoxColumn.DataPropertyName = "Designation";
+            this.designationDataGridViewTextBoxColumn.HeaderText = "Designation";
+            this.designationDataGridViewTextBoxColumn.Name = "designationDataGridViewTextBoxColumn";
+            this.designationDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.Width = 150;
             // 
             // salesRec
             // 
@@ -210,6 +289,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.CornflowerBlue;
             this.ClientSize = new System.Drawing.Size(1114, 730);
+            this.Controls.Add(this.outgrid1);
             this.Controls.Add(this.txtDisplay);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
@@ -232,6 +312,9 @@
             this.Name = "salesRec";
             this.Text = "Employee Management System";
             this.Load += new System.EventHandler(this.salesRec_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.outgrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.empdataDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,6 +338,15 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtDisplay;
+        private System.Windows.Forms.DataGridView outgrid1;
+        private EmpdataDataSet empdataDataSet;
+        private System.Windows.Forms.BindingSource employeesBindingSource;
+        private EmpdataDataSetTableAdapters.EmployeesTableAdapter employeesTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empSalaryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn designationDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
     }
 }
 
